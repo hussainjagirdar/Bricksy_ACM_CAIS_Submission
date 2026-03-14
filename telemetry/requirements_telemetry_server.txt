@@ -1,0 +1,4 @@
+# Requirements for telemetry_server.py
+flask>=2.0.0
+flask-cors>=3.0.0
+databricks-zerobus-ingest-sdk

@@ -1,0 +1,56 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+venv_mcp/
+*.egg
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Android
+.gradle/
+.idea/
+local.properties
+*.iml
+app/build/
+build/
+.kotlin/
+
+# Databricks
+.databricks/
+uv.lock
+
+# IDE
+.vscode/
+.claude/
+.cursorrules
+
+# OS
+.DS_Store
+Thumbs.db
+
+# LaTeX build artifacts
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.log
+paper/*.out
+paper/*.fdb_latexmk
+paper/*.fls
+paper/*.synctex.gz
+
+# Large binary files
+*.mp4
+*.pdf
+
+# Secrets (never commit)
+.env
+*.secret
+credentials.json

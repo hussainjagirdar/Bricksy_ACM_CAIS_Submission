@@ -1,0 +1,57 @@
+<resources>
+    <string name="app_name">Bricksy</string>
+    <string name="input_title">Input</string>
+    <string name="input_subtitle">Enter sensor values and actions.</string>
+    <string name="label_telemetry_section">Car Telemetry Information</string>
+    <string name="label_driver_section">Driver Interactions</string>
+    <string name="label_engine_toggle">Engine Start Stop</string>
+    <string name="label_ac_temp">AC Temp</string>
+    <string name="label_engine_temp">Engine Temp</string>
+    <string name="output_engine_started">Engine started. Telemetry streaming every 5 seconds...</string>
+    <string name="output_engine_stopped">Engine stopped. Telemetry streaming stopped.</string>
+    <string name="output_telemetry_sent">Telemetry sent at %1$s</string>
+    <string name="output_title">Output</string>
+    <string name="output_subtitle">Diagnostics and responses appear here.</string>
+    <string name="label_tpms_front_left">TPMS FL</string>
+    <string name="label_tpms_front_right">TPMS FR</string>
+    <string name="label_tpms_back_right">TPMS BR</string>
+    <string name="label_tpms_back_left">TPMS BL</string>
+    <string name="label_driver_name">Driver Name</string>
+    <string name="hint_driver_name">Enter name</string>
+    <string name="label_vehicle">Vehicle</string>
+    <string name="label_ac_temperature">AC Temperature</string>
+    <string name="label_engine_temperature">Engine Temperature</string>
+    <string name="hint_numeric">Enter a number</string>
+    <string name="action_voice_record">Hold to\nrecord voice</string>
+    <string name="action_diagnose">Diagnose</string>
+    <string name="action_reset">Reset</string>
+    <string name="action_new_session">New Session</string>
+    <string name="output_new_session">New session started. Session ID: %1$s</string>
+    <string name="output_session_id">Session ID: %1$s</string>
+    <string name="label_logo">Bricksy logo</string>
+    <string name="output_default">Output will appear here.</string>
+    <string name="output_recording">Recording voice...</string>
+    <string name="output_recording_started">Recording started.</string>
+    <string name="output_recording_stopped">Recording ended.</string>
+    <string name="output_missing_voice">No voice recording was captured.</string>
+    <string name="output_permission_denied">Microphone permission denied.</string>
+    <string name="output_missing_value">Missing value for %1$s.</string>
+    <string name="output_invalid_value">Invalid number for %1$s.</string>
+    <string name="output_request_failed">Request failed: %1$s.</string>
+    <string name="output_request_sending">Request prepared. File size: %1$d bytes.</string>
+    <string name="output_request_sent">Request sent. Payload audio size: %1$d bytes.</string>
+    <string name="output_request_sending_text">Request prepared. Text: %1$s</string>
+    <string name="output_speech_recognized">Speech recognized: %1$s</string>
+    <string name="output_speech_error">Speech error code: %1$d</string>
+    <string name="output_speech_unavailable">Speech recognition is unavailable on this device.</string>
+    <string name="output_recording_failed">Recording failed: %1$s.</string>
+    <string name="output_diagnose_response">Diagnose response: %1$s</string>
+    <string name="output_diagnose_payload">Diagnose payload: %1$s</string>
+    <string name="output_api_response">API response: %1$s</string>
+    <string name="output_voice_response">Voice response: %1$s</string>
+    <string-array name="vehicle_options">
+        <item>XUV 700</item>
+        <item>SCORPIO-N</item>
+        <item>THAR ROXX</item>
+    </string-array>
+</resources>

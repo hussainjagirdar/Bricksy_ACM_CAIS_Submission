@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Dashboard - Advanced Control System</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="ambient-overlay" id="ambientOverlay"></div>
+
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="logo">
+                <img src="/static/bricksy_logo.png" alt="Bricksy Logo" class="logo-image">
+                <span>Bricksy Car Dashboard</span>
+            </div>
+            <div class="header-info">
+                <span class="time" id="currentTime"></span>
+                <span class="date" id="currentDate"></span>
+            </div>
+        </header>
+
+        <!-- Main Dashboard -->
+        <div class="dashboard-main">
+            <!-- Left Panel - Climate & Environment -->
+            <div class="panel left-panel">
+                <div class="panel-header">
+                    <h2>Climate Control</h2>
+                    <div class="status-indicator active"></div>
+                </div>
+
+                <!-- AC Temperature -->
+                <div class="control-group">
+                    <div class="control-label">
+                        <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/>
+                        </svg>
+                        <span>Temperature</span>
+                    </div>
+                    <div class="temperature-display">
+                        <button class="temp-btn" onclick="adjustTemp(-1)">-</button>
+                        <div class="temp-value">
+                            <span class="temp-number" id="tempValue">22</span>
+                            <span class="temp-unit">°C</span>
+                        </div>
+                        <button class="temp-btn" onclick="adjustTemp(1)">+</button>
+                    </div>
+                    <div class="temp-range">
+                        <input type="range" id="tempSlider" min="16" max="30" value="22"
+                               oninput="updateTemp(this.value)">
+                    </div>
+                </div>
+
+                <!-- Wipers -->
+                <div class="control-group">
+                    <div class="control-label">
+                        <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"/>
+                        </svg>
+                        <span>Wipers</span>
+                    </div>
+                    <div class="wiper-controls">
+                        <button class="wiper-btn" data-mode="off" onclick="setWipers('off')">OFF</button>
+                        <button class="wiper-btn" data-mode="slow" onclick="setWipers('slow')">SLOW</button>
+                        <button class="wiper-btn active" data-mode="fast" onclick="setWipers('fast')">FAST</button>
+                    </div>
+                    <div class="wiper-animation" id="wiperAnimation">
+                        <div class="wiper"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Center Panel - Main Display -->
+            <div class="panel center-panel">
+                <!-- Speedometer -->
+                <div class="speedometer">
+                    <svg class="speed-gauge" viewBox="0 0 200 120">
+                        <defs>
+                            <linearGradient id="speedGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#4A90E2;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#E24A90;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <path class="gauge-bg" d="M 20 100 A 80 80 0 0 1 180 100"
+                              fill="none" stroke="#2a2a3e" stroke-width="12"/>
+                        <path class="gauge-fill" id="speedGauge" d="M 20 100 A 80 80 0 0 1 180 100"
+                              fill="none" stroke="url(#speedGradient)" stroke-width="12"
+                              stroke-dasharray="251.2" stroke-dashoffset="251.2"/>
+                        <circle cx="100" cy="100" r="50" fill="#1a1a2e" stroke="#4A90E2" stroke-width="2"/>
+                        <text x="100" y="90" text-anchor="middle" class="speed-value" id="speedValue">0</text>
+                        <text x="100" y="110" text-anchor="middle" class="speed-unit">MPH</text>
+                    </svg>
+                </div>
+
+                <!-- Fuel Gauge -->
+                <div class="fuel-gauge">
+                    <div class="gauge-label">
+                        <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M3 8h13M3 12h13m-13 4h13M16 4v16m2-8l2-2m-2 6l2 2"/>
+                        </svg>
+                        <span>FUEL</span>
+                    </div>
+                    <div class="gauge-bar">
+                        <div class="gauge-fill-bar" id="fuelBar" style="width: 85%"></div>
+                    </div>
+                    <span class="gauge-value" id="fuelValue">85%</span>
+                </div>
+
+                <!-- Status Indicators -->
+                <div class="status-grid">
+                    <div class="status-item">
+                        <svg class="status-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                        <span>Engine</span>
+                        <span class="status-badge on">ON</span>
+                    </div>
+                    <div class="status-item">
+                        <svg class="status-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <circle cx="12" cy="12" r="10"/>
+                        </svg>
+                        <span>Battery</span>
+                        <span class="status-badge on">98%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel - Ambient & Seat -->
+            <div class="panel right-panel">
+                <div class="panel-header">
+                    <h2>Comfort Settings</h2>
+                    <div class="status-indicator active"></div>
+                </div>
+
+                <!-- Ambient Lighting -->
+                <div class="control-group">
+                    <div class="control-label">
+                        <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="12" cy="12" r="5"/>
+                            <line x1="12" y1="1" x2="12" y2="3"/>
+                            <line x1="12" y1="21" x2="12" y2="23"/>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                            <line x1="1" y1="12" x2="3" y2="12"/>
+                            <line x1="21" y1="12" x2="23" y2="12"/>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                        </svg>
+                        <span>Ambient Light</span>
+                    </div>
+                    <div class="color-buttons">
+                        <button class="color-btn" data-color="red" style="background: #FF0000;" onclick="setAmbientColor('red')" title="Red"></button>
+                        <button class="color-btn active" data-color="blue" style="background: #4A90E2;" onclick="setAmbientColor('blue')" title="Blue"></button>
+                        <button class="color-btn" data-color="green" style="background: #00FF00;" onclick="setAmbientColor('green')" title="Green"></button>
+                        <button class="color-btn" data-color="white" style="background: #FFFFFF; border: 2px solid #444;" onclick="setAmbientColor('white')" title="White"></button>
+                        <button class="color-btn" data-color="purple" style="background: #9333EA;" onclick="setAmbientColor('purple')" title="Purple"></button>
+                        <button class="color-btn" data-color="orange" style="background: #FFA500;" onclick="setAmbientColor('orange')" title="Orange"></button>
+                    </div>
+                    <div class="current-color-display">
+                        Current: <span id="currentColorName">blue</span>
+                    </div>
+                </div>
+
+                <!-- Seat Height -->
+                <div class="control-group">
+                    <div class="control-label">
+                        <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M7 13h10l4 8H3l4-8Z"/>
+                            <path d="M5 3v10m14-10v10"/>
+                        </svg>
+                        <span>Seat Height</span>
+                    </div>
+                    <div class="seat-visual">
+                        <div class="seat-container">
+                            <div class="seat" id="seatVisual">
+                                <div class="seat-back"></div>
+                                <div class="seat-bottom"></div>
+                            </div>
+                            <div class="seat-rail"></div>
+                        </div>
+                    </div>
+                    <div class="seat-controls">
+                        <button class="seat-btn" onclick="adjustSeat(-10)">▼</button>
+                        <input type="range" id="seatSlider" min="0" max="100" value="50"
+                               orient="vertical" oninput="updateSeat(this.value)">
+                        <button class="seat-btn" onclick="adjustSeat(10)">▲</button>
+                    </div>
+                    <div class="seat-value">
+                        <span id="seatValue">50</span>%
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="dashboard-footer">
+            <div class="connection-status">
+                <div class="status-dot" id="connectionStatus"></div>
+                <span>Connected</span>
+            </div>
+            <div class="api-info">
+                <span>API: <a href="/docs" target="_blank">Documentation</a></span>
+            </div>
+        </footer>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

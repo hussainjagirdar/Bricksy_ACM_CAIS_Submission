@@ -1,0 +1,14 @@
+command: ["uv", "run", "servicehub"]
+env:
+  - name: PGHOST
+    value: "<your-lakebase-host>.database.<region>.azuredatabricks.net"
+  - name: PGDATABASE
+    value: "databricks_postgres"
+  - name: PGPORT
+    value: "5432"
+  - name: PGUSER
+    value: "<your-lakebase-user-id>"
+  - name: PGSSLMODE
+    value: "require"
+  - name: PGENDPOINT
+    value: "<your-lakebase-endpoint>"

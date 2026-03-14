@@ -1,0 +1,28 @@
+# Virtual environments
+.venv/
+venv/
+
+# Frontend source (only built static/ is needed)
+frontend/
+
+# Claude Code
+.claude/
+
+# Databricks CLI state
+.databricks/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Local dev files
+.python-version
+LOCAL_SETUP.md
+init_db.py
+
+# Git
+.git/
+.gitignore
+
+# OS files
+.DS_Store
