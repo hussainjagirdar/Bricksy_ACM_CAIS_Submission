@@ -41,10 +41,6 @@ Bricksy is an AI-powered vehicle copilot that uses the **Model Context Protocol 
 ```
 bricksy/
 ├── README.md                  ← You are here
-├── paper/                     ← ACM CAIS 2026 demo paper (LaTeX)
-│   ├── main.tex
-│   ├── references.bib
-│   └── figures/
 ├── android-app/               ← Kotlin Android client (voice + sensor emulation)
 │   ├── README.md
 │   ├── app/src/main/
@@ -156,26 +152,6 @@ The agent deploys as a **Databricks Model Serving endpoint** via MLflow.
 | Vector Search | Databricks Vector Search, GTE-Large (1024-dim) |
 | Memory | Databricks LakeBase + DatabricksStore |
 
-## Paper
-
-The accompanying ACM CAIS 2026 demo paper is in `paper/`. To compile:
-
-```bash
-cd paper
-pdflatex main.tex && bibtex main && pdflatex main.tex && pdflatex main.tex
-```
-
-## Citation
-
-```bibtex
-@inproceedings{jagirdar2026bricksy,
-  title={Bricksy: A Governed Edge-to-Lakehouse AI Assistant for Next-Generation Smart Vehicles},
-  author={Jagirdar, Hussain and CV, Ravichandan},
-  booktitle={Proceedings of the ACM Conference on AI Systems (CAIS '26)},
-  year={2026}
-}
-```
-
 ## License
 
-This project is released for academic and research purposes as a companion to the ACM CAIS 2026 demo paper.
+This project is released for academic and research purposes. Paper yet not published or selected.
