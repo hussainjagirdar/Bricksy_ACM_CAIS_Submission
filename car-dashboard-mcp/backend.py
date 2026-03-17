@@ -43,15 +43,26 @@ static_dir = os.path.join(os.path.dirname(__file__), "static")
 if os.path.exists(static_dir):
     custom_app.mount("/static", StaticFiles(directory=static_dir), name="static")
 
-# Serve main dashboard page
-@custom_app.get("/dashboard")
-async def dashboard():
-    """Serve the main dashboard page"""
+# Helper to serve dashboard HTML
+def _read_dashboard_html():
     html_path = os.path.join(os.path.dirname(__file__), "static", "index.html")
     if os.path.exists(html_path):
         with open(html_path, "r") as f:
             return HTMLResponse(content=f.read())
-    return {"message": "Car Dashboard API", "docs": "/docs", "dashboard": "/dashboard"}
+    return {"message": "Car Dashboard API", "docs": "/docs"}
+
+
+# Serve dashboard at landing page and /dashboard
+@custom_app.get("/")
+async def custom_root():
+    """Serve the main dashboard page at root"""
+    return _read_dashboard_html()
+
+
+@custom_app.get("/dashboard")
+async def dashboard():
+    """Serve the main dashboard page"""
+    return _read_dashboard_html()
 
 
 @asynccontextmanager
@@ -96,15 +107,17 @@ combined_app.include_router(api_router)
 if os.path.exists(static_dir):
     combined_app.mount("/static", StaticFiles(directory=static_dir), name="static")
 
-# Add dashboard endpoint to combined app
+# Serve dashboard at landing page and /dashboard on combined app
+@combined_app.get("/")
+async def combined_root():
+    """Serve the main dashboard page at root"""
+    return _read_dashboard_html()
+
+
 @combined_app.get("/dashboard")
 async def combined_dashboard():
     """Serve the main dashboard page"""
-    html_path = os.path.join(os.path.dirname(__file__), "static", "index.html")
-    if os.path.exists(html_path):
-        with open(html_path, "r") as f:
-            return HTMLResponse(content=f.read())
-    return {"message": "Car Dashboard MCP Server", "docs": "/docs", "dashboard": "/dashboard"}
+    return _read_dashboard_html()
 
 
 # For backward compatibility

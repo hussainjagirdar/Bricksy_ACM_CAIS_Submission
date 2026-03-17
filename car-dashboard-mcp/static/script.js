@@ -34,6 +34,12 @@ function updateDateTime() {
 
 // Connect to Server-Sent Events for real-time updates
 function connectToEventStream() {
+    // Close existing connection before creating a new one to prevent leak
+    if (eventSource) {
+        eventSource.close();
+        eventSource = null;
+    }
+
     eventSource = new EventSource(`${API_BASE}/api/events`);
 
     eventSource.onmessage = (event) => {
@@ -43,6 +49,11 @@ function connectToEventStream() {
 
     eventSource.onerror = () => {
         document.getElementById('connectionStatus').style.background = '#ef4444';
+        // Close the broken connection before scheduling a reconnect
+        if (eventSource) {
+            eventSource.close();
+            eventSource = null;
+        }
         setTimeout(() => {
             connectToEventStream();
         }, 5000);

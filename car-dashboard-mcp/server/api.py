@@ -30,7 +30,7 @@ async def get_state():
 async def events():
     """Server-Sent Events endpoint for real-time updates"""
     async def event_generator():
-        queue = asyncio.Queue()
+        queue = asyncio.Queue(maxsize=50)
         car_state_manager.add_client(queue)
         try:
             # Send initial state
@@ -41,6 +41,9 @@ async def events():
                 message = await queue.get()
                 yield f"data: {message}\n\n"
         except asyncio.CancelledError:
+            pass
+        finally:
+            # Always clean up the client queue on disconnect
             car_state_manager.remove_client(queue)
 
     return StreamingResponse(event_generator(), media_type="text/event-stream")

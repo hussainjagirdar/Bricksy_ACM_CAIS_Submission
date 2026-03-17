@@ -71,7 +71,18 @@ class CarStateManager:
             message: JSON message to send to clients
         """
         for queue in self.clients:
-            await queue.put(message)
+            try:
+                queue.put_nowait(message)
+            except asyncio.QueueFull:
+                # Drop oldest message and add the new one to prevent unbounded growth
+                try:
+                    queue.get_nowait()
+                except asyncio.QueueEmpty:
+                    pass
+                try:
+                    queue.put_nowait(message)
+                except asyncio.QueueFull:
+                    pass
 
     def update_state(self, key: str, value: Any) -> None:
         """
